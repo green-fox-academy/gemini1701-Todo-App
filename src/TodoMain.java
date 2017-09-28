@@ -10,24 +10,8 @@ public class TodoMain {
     public static void main(String[] args) {
 
         cLMenu();
+        todoMain();
 
-        System.out.println("Choose an option!");
-        Scanner sc = new Scanner(System.in);
-        String input = sc.next();
-
-        Todo todo = new Todo();
-
-        TodoWhat what = new TodoWhat("Walk the dog");
-        TodoWhat what1 = new TodoWhat("Buy milk");
-        TodoWhat what2 = new TodoWhat("Do homework");
-
-        todo.add(what);
-        todo.add(what1);
-        todo.add(what2);
-
-        if(input.matches("-l")) {
-            System.out.println(todo);
-        }
 
 
     }
@@ -48,23 +32,34 @@ public class TodoMain {
 
     }
 
-/*    public static void todoMain(){
+    public static void todoMain(){
 
+        System.out.println("Choose an option!");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
 
+        if(input.matches("-l")) {
 
-        Todo todo = new Todo();
+            try {
+                Path filePath = Paths.get("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList.txt");
+                List<String> lines = Files.readAllLines(filePath);
 
-        TodoWhat what = new TodoWhat("Walk the dog");
-        TodoWhat what1 = new TodoWhat("Buy milk");
-        TodoWhat what2 = new TodoWhat("Do homework");
+                for (int i = 0; i < lines.size(); i++) {
+                    System.out.println(lines.get(i));
+                }
 
-        todo.add(what);
-        todo.add(what1);
-        todo.add(what2);
-
-        if(input=="-l") {
-            System.out.println(todo);
+            } catch (IOException e) {
+                System.out.println("Unable to read file: todoList.txt");
+            }
+        }else{
+            System.out.println("Choose an option!");
         }
-    } */
+        }
 
-}
+        
+
+
+
+    }
+
+
