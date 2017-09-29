@@ -91,18 +91,18 @@ public class TodoMain {
         String inputAdd = scTask.next();
 
         Path myPath = Paths.get("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList.txt");
-        List<String> newList1 = Files.readAllLines(myPath);
+        List<String> newList = Files.readAllLines(myPath);
 
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append(newList1.size()+1);
-            sb.append(" - ");
+            sb.append(newList.size()+1);
+            sb.append(" [] ");
             sb.append(inputAdd);
             String strI = sb.toString();
-            newList1.clear();
-            newList1.add(strI);
+            newList.clear();
+            newList.add(strI);
 
-            Files.write(myPath, newList1, StandardOpenOption.APPEND);
+            Files.write(myPath, newList, StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("Unable to write file: todoList.txt");
         }
@@ -114,16 +114,23 @@ public class TodoMain {
         Scanner scTask = new Scanner(System.in);
         String inputRem = scTask.next();
 
+    /*    Path myPath = Paths.get("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList.txt");
+        try {
+            List<String> newList = Files.readAllLines(myPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } */
+
         try {
             File inputFile = new File("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList.txt");
-            File outputFile = new File("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList.txt");
+            File outputFile = new File("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList1.txt");
 
             try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
                  BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    if (!line.equals(inputRem)) {
-                        writer.write(line);
+             //   String line = null;
+                while ((inputRem = reader.readLine()) != null) {
+                    if (!inputRem.equals(inputRem)) {
+                        writer.write(inputRem);
                         writer.newLine();
                     }
                 }
