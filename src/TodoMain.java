@@ -11,21 +11,40 @@ public class TodoMain {
 
     public static void main(String[] args) {
 
+
         cLMenu();
+    //    System.out.println("Choose an option!");
+    //    Scanner sc = new Scanner(System.in);
+    //    String input = sc.next();
 
-        System.out.println("Choose an option!");
-        Scanner sc = new Scanner(System.in);
-        String input = sc.next();
 
-        if (input.matches("-l")) {
-            todoMain();
-        }
-        if (input.matches("-a")) {
-            todoAdd();
-        }
-        if (input.matches("-r")) {
-            todoRem();
-        }
+            System.out.println("Choose an option!");
+            Scanner sc = new Scanner(System.in);
+            String input = sc.next();
+
+            while(!(input.matches("-l") || input.matches("-a") || input.matches("-r"))) {
+
+                System.out.println("Not a valid argument. try again!");
+                sc = new Scanner(System.in);
+                input = sc.next();
+
+            }
+
+            if (input.matches("-l")) {
+                todoMain();
+            }
+            if (input.matches("-a")) {
+                try{
+                    todoAdd();
+                }
+                catch (Exception ex){
+                }
+            }
+            if (input.matches("-r")) {
+                todoRem();
+            }
+
+
 
 
     }
@@ -64,17 +83,26 @@ public class TodoMain {
     }
 
 
-    public static void todoAdd() {
+    public static void todoAdd() throws IOException {
+
 
         System.out.println("Add a task for the list!");
         Scanner scTask = new Scanner(System.in);
         String inputAdd = scTask.next();
 
         Path myPath = Paths.get("C:/Users/Gemini006/greenfox/gemini1701-Todo-App/src/todoList.txt");
-        List<String> newList = new ArrayList<>();
-        newList.add(inputAdd);
+        List<String> newList1 = Files.readAllLines(myPath);
+
         try {
-            Files.write(myPath, newList, StandardOpenOption.APPEND);
+            StringBuilder sb = new StringBuilder();
+            sb.append(newList1.size()+1);
+            sb.append(" - ");
+            sb.append(inputAdd);
+            String strI = sb.toString();
+            newList1.clear();
+            newList1.add(strI);
+
+            Files.write(myPath, newList1, StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("Unable to write file: todoList.txt");
         }
